@@ -1,5 +1,6 @@
 export function getProtocolConfig(): { label: string; value: string }[] {
     return [
+        { label: 'AnyTLS', value: 'anytls' },
         { label: 'Vless', value: 'vless' },
         { label: 'Vmess', value: 'vmess' },
         { label: 'Trojan', value: 'trojan' },

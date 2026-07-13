@@ -3,6 +3,7 @@ import type { ParserType } from './types';
 import { base64Decode, fetchWithRetry } from 'cloudflare-tools';
 import { load } from 'js-yaml';
 import { Convert } from '../convert';
+import { AnytlsParser } from './protocol/anytls';
 import { Hysteria2Parser } from './protocol/hysteria2';
 import { SsParser } from './protocol/ss';
 import { SsrParser } from './protocol/ssr';
@@ -12,6 +13,7 @@ import { VlessParser } from './protocol/vless';
 import { VmessParser } from './protocol/vmess';
 import { getYamlProxies } from './yaml';
 
+export * from './protocol/anytls';
 export * from './protocol/hysteria2';
 export * from './protocol/ss';
 export * from './protocol/ssr';
@@ -41,7 +43,9 @@ export class Parser extends Convert {
                 if (processVps) {
                     let parser: ParserType | null = null;
 
-                    if (processVps.startsWith('vless://') && this.hasProtocol('vless')) {
+                    if (processVps.startsWith('anytls://') && this.hasProtocol('anytls')) {
+                        parser = new AnytlsParser(processVps);
+                    } else if (processVps.startsWith('vless://') && this.hasProtocol('vless')) {
                         parser = new VlessParser(processVps);
                     } else if (processVps.startsWith('vmess://') && this.hasProtocol('vmess')) {
                         parser = new VmessParser(processVps);

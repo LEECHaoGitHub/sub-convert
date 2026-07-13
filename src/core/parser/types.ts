@@ -1,3 +1,4 @@
+import type { AnytlsParser } from './protocol/anytls';
 import type { Hysteria2Parser } from './protocol/hysteria2';
 import type { SsParser } from './protocol/ss';
 import type { SsrParser } from './protocol/ssr';
@@ -63,4 +64,6 @@ export interface Hysteria2Config extends BaseConfig {}
 
 export interface TuicConfig extends BaseConfig {}
 
-export type ParserType = VlessParser | VmessParser | TrojanParser | SsParser | Hysteria2Parser | SsrParser | TuicParser;
+export interface AnytlsConfig extends BaseConfig {}
+
+export type ParserType = AnytlsParser | VlessParser | VmessParser | TrojanParser | SsParser | Hysteria2Parser | SsrParser | TuicParser;

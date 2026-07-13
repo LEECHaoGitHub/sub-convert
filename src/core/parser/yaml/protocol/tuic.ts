@@ -36,9 +36,8 @@ export function tuicConvert(config: Record<string, any>): string {
         parameters.append('sni', sni);
     }
 
-    if (config.insecure || config['skip-cert-verify']) {
-        parameters.append('allow_insecure', '1');
-    }
+    const insecure = config.insecure ?? config['skip-cert-verify'];
+    if (typeof insecure === 'boolean') parameters.append('allow_insecure', insecure ? '1' : '0');
 
     if (config['disable-sni']) {
         parameters.append('disable_sni', '1');

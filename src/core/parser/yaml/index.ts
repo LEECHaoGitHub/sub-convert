@@ -1,4 +1,5 @@
 import type { ClashType } from 'src/types';
+import { anytlsConvert } from './protocol/anytls';
 import { hysteriaConvert } from './protocol/hysteria';
 import { hysteria2Convert } from './protocol/hysteria2';
 import { shadowsocksConvert } from './protocol/shadowsocks';
@@ -12,6 +13,10 @@ export function getYamlProxies(proxies: ClashType['proxies']): string[] {
     const proxiesList: string[] = [];
     for (const proxy of proxies) {
         try {
+            if (proxy.type === 'anytls') {
+                proxiesList.push(anytlsConvert(proxy));
+            }
+
             if (proxy.type === 'vmess') {
                 proxiesList.push(vmessConvert(proxy));
             }
