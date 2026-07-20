@@ -1,6 +1,7 @@
 import { SubButton, SubCheckbox, SubForm, SubFormItem, SubInput, SubMessage, SubMultiSelect, SubSelect, SubTextarea } from './components';
 import { getAdvancedConfig, getBackendConfig, getProtocolConfig, getRemoteConfig, getShortServeConfig, getTargetConfig } from './config';
 import { getDefaultBackend } from './config/backendConfig';
+import { getExcludeConfig } from './config/getExcludeConfig';
 import { theme } from './script/theme';
 import { layout } from './style/layout';
 import { style } from './style/style';
@@ -12,6 +13,7 @@ export function showPage(request: Request, env: Env): Response {
     const targetConfig = getTargetConfig();
     const advancedConfig = getAdvancedConfig();
     const protocolConfig = getProtocolConfig();
+    const excludeConfig = getExcludeConfig();
     const defaultBackend = getDefaultBackend(request, env);
 
     const hasDBConfig = env.SHORT_URL_ENABLED === true;
@@ -118,6 +120,10 @@ export function showPage(request: Request, env: Env): Response {
                                 <sub-multi-select key="protocol"></sub-multi-select>
                             </sub-form-item>
 
+                            <sub-form-item label="排除节点">
+                                <sub-multi-select key="exclude"></sub-multi-select>
+                            </sub-form-item>
+
                             <sub-form-item label="高级选项">
                                 <sub-checkbox key="advanced" span="${advancedConfig.length}"></sub-checkbox>
                             </sub-form-item>
@@ -208,6 +214,10 @@ export function showPage(request: Request, env: Env): Response {
                             type: 'sub-multi-select',
                             options: ${JSON.stringify(protocolConfig)}
                         },
+                        exclude: {
+                            type: 'sub-multi-select',
+                            options: ${JSON.stringify(excludeConfig)}
+                        },
                         advanced: {
                             type: 'sub-checkbox',
                             options: ${JSON.stringify(advancedConfig)}
@@ -224,6 +234,7 @@ export function showPage(request: Request, env: Env): Response {
                             config: '${remoteConfig[0].value}',
                             backend: '${defaultBackend}',
                             protocol: '${JSON.stringify(protocolConfig.map(item => item.value))}',
+                            exclude: '${JSON.stringify([])}',
                             advanced: ['emoji', 'new_name', 'udp'],
                             shortServe: '${shortServeConfig[0]?.value ?? ''}',
 
@@ -295,6 +306,7 @@ export function showPage(request: Request, env: Env): Response {
                                 url.searchParams.set('insert', 'true');
                                 url.searchParams.set('config', this.#model.config);
                                 url.searchParams.set('protocol', Array.isArray(this.#model.protocol) ? JSON.stringify(this.#model.protocol) : this.#model.protocol);
+                                url.searchParams.set('exclude', Array.isArray(this.#model.exclude) ? JSON.stringify(this.#model.exclude) : this.#model.exclude);
                                 
                                 const advancedOptions = this.#getAdvancedOptions(this.#model);
 

@@ -22,6 +22,8 @@ export class SsParser extends Faker {
     /** * @description 混淆备注 */
     #confusePs: string = '';
 
+    #match: string = '';
+
     constructor(v: string) {
         super();
         this.#confusePs = crypto.randomUUID();
@@ -40,6 +42,7 @@ export class SsParser extends Faker {
         this.#originLink = _v;
         this.#originConfig = new URL(_v);
         this.#originPs = this.#originConfig.hash ?? '';
+        this.#match = this.getMatch(this.#originConfig.hash) ?? '';
     }
 
     /**
@@ -127,6 +130,10 @@ export class SsParser extends Faker {
         return this.#confuseConfig;
     }
 
+    get match(): string | null {
+        return this.#match ?? null;
+    }
+
     /**
      * @description 将传统格式 (SIP002) 的链接转换为标准新版 URI 格式的链接
      * @param {string} sipUrl SIP002 格式链接
@@ -209,3 +216,4 @@ export class SsParser extends Faker {
         }
     }
 }
+

@@ -23,6 +23,8 @@ export class VmessParser extends Faker {
     /** * @description 混淆备注 */
     #confusePs: string = '';
 
+    #match: string = '';
+
     public constructor(v: string) {
         super();
         this.#confusePs = crypto.randomUUID();
@@ -41,6 +43,7 @@ export class VmessParser extends Faker {
         this.#originLink = v;
         this.#originConfig = JSON.parse(base64Decode(config));
         this.#originPs = this.#originConfig.ps ?? '';
+        this.#match = this.getMatch(this.#originConfig.ps) ?? '';
     }
 
     /**
@@ -151,4 +154,9 @@ export class VmessParser extends Faker {
     get confuseConfig(): Partial<VmessConfig> {
         return this.#confuseConfig;
     }
+
+    get match(): string | null {
+        return this.#match ?? null;
+    }
 }
+

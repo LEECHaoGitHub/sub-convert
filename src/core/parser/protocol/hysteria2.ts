@@ -22,6 +22,9 @@ export class Hysteria2Parser extends Faker {
     /** * @description 混淆备注 */
     #confusePs: string = '';
 
+    /** * @description 区域 */
+    #match: string = '';
+
     constructor(v: string) {
         super();
         this.#confusePs = crypto.randomUUID();
@@ -39,6 +42,7 @@ export class Hysteria2Parser extends Faker {
         this.#originLink = v;
         this.#originConfig = new URL(v);
         this.#originPs = this.#originConfig.hash ?? '';
+        this.#match = this.getMatch(this.#originConfig.hash) ?? '';
     }
 
     /**
@@ -166,6 +170,10 @@ export class Hysteria2Parser extends Faker {
      */
     get confuseConfig(): Partial<Hysteria2Config> {
         return this.#confuseConfig;
+    }
+
+    get match(): string | null {
+        return this.#match ?? null;
     }
 }
 

@@ -29,11 +29,12 @@ export class Parser extends Convert {
 
     private vps: string[] = [];
     private includeProtocol: string[] = [];
-
-    constructor(vps: string[], existedVps: string[] = [], protocol: string | null = '') {
+    private excludeMatch: string[] = [];
+    constructor(vps: string[], existedVps: string[] = [], protocol: string | null = '', exclude: string | null = '') {
         super(existedVps);
         this.vps = vps;
         this.includeProtocol = protocol ? JSON.parse(protocol) : [];
+        this.excludeMatch = exclude ? JSON.parse(exclude) : [];
     }
 
     public async parse(vps: string[] = this.vps): Promise<void> {
@@ -91,6 +92,10 @@ export class Parser extends Convert {
     }
 
     private setStore(v: string, parser: ParserType): void {
+        const match = parser.match;
+        if (match && this.excludeMatch.includes(match)) {
+            return;
+        }
         this.urlSet.add(parser.confuseLink);
         this.originUrls.add(v);
         this.vpsStore.set(parser.confusePs, parser);
@@ -150,3 +155,4 @@ export class Parser extends Convert {
         return Array.from(this.originUrls);
     }
 }
+
