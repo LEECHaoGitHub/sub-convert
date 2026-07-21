@@ -22,7 +22,7 @@ export class VlessParser extends Faker {
     /** * @description 混淆备注 */
     #confusePs: string = '';
 
-    #match: string = '';
+    #tag: string = '';
 
     constructor(v: string) {
         super();
@@ -41,7 +41,7 @@ export class VlessParser extends Faker {
         this.#originLink = v;
         this.#originConfig = new URL(v);
         this.#originPs = PsUtil.formatPs(this.#originConfig.hash) ?? '';
-        this.#match = this.getMatch(this.#originConfig.hash) ?? '';
+        this.#tag = this.getTag(this.#originConfig.hash) ?? '';
     }
 
     /**
@@ -158,8 +158,8 @@ export class VlessParser extends Faker {
         return this.#confuseConfig;
     }
 
-    get match(): string | null {
-        return this.#match ?? null;
+    get tag(): string | null {
+        return this.#tag ?? null;
     }
 }
 

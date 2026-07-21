@@ -1,6 +1,6 @@
-import { Match } from './match';
+import { Exclude } from './exclude';
 
-export class Faker extends Match {
+export class Faker extends Exclude {
     constructor() {
         super();
     }

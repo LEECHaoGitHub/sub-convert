@@ -9,7 +9,7 @@ export class AnytlsParser extends Faker {
     #confuseConfig: Partial<AnytlsConfig> = {};
     #originPs = '';
     #confusePs = '';
-    #match = '';
+    #tag = '';
 
     constructor(v: string) {
         super();
@@ -22,7 +22,7 @@ export class AnytlsParser extends Faker {
         this.#originLink = v;
         this.#originConfig = new URL(v);
         this.#originPs = this.#originConfig.hash ?? '';
-        this.#match = this.getMatch(this.#originConfig.hash) ?? '';
+        this.#tag = this.getTag(this.#originConfig.hash) ?? '';
     }
 
     public updateOriginConfig(ps: string): void {
@@ -94,8 +94,8 @@ export class AnytlsParser extends Faker {
         return this.#confuseConfig;
     }
 
-    get match(): string | null {
-        return this.#match ?? null;
+    get tag(): string | null {
+        return this.#tag ?? null;
     }
 }
 

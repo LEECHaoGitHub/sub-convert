@@ -116,7 +116,7 @@ export function showPage(request: Request, env: Env): Response {
                                 <sub-select key="backend" filterable></sub-select>
                             </sub-form-item>
 
-                            <sub-form-item label="包含节点">
+                            <sub-form-item label="节点协议">
                                 <sub-multi-select key="protocol"></sub-multi-select>
                             </sub-form-item>
 

@@ -23,7 +23,7 @@ export class VmessParser extends Faker {
     /** * @description 混淆备注 */
     #confusePs: string = '';
 
-    #match: string = '';
+    #tag: string = '';
 
     public constructor(v: string) {
         super();
@@ -43,7 +43,7 @@ export class VmessParser extends Faker {
         this.#originLink = v;
         this.#originConfig = JSON.parse(base64Decode(config));
         this.#originPs = this.#originConfig.ps ?? '';
-        this.#match = this.getMatch(this.#originConfig.ps) ?? '';
+        this.#tag = this.getTag(this.#originConfig.ps) ?? '';
     }
 
     /**
@@ -155,8 +155,8 @@ export class VmessParser extends Faker {
         return this.#confuseConfig;
     }
 
-    get match(): string | null {
-        return this.#match ?? null;
+    get tag(): string | null {
+        return this.#tag ?? null;
     }
 }
 

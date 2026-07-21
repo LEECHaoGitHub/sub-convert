@@ -22,7 +22,7 @@ export class SsrParser extends Faker {
     /** * @description 混淆备注 */
     #confusePs: string = '';
 
-    #match: string = '';
+    #tag: string = '';
 
     public constructor(v: string) {
         super();
@@ -42,7 +42,7 @@ export class SsrParser extends Faker {
         this.#originLink = v;
         this.#originConfig = this.getOriginConfig(base64Decode(config));
         this.#originPs = this.#originConfig.remarks ?? '';
-        this.#match = this.getMatch(this.#originConfig.remarks) ?? '';
+        this.#tag = this.getTag(this.#originConfig.remarks) ?? '';
     }
 
     private getOriginConfig(v: string): SsrConfig {
@@ -146,8 +146,8 @@ export class SsrParser extends Faker {
         return this.#confuseConfig;
     }
 
-    get match(): string | null {
-        return this.#match ?? null;
+    get tag(): string | null {
+        return this.#tag ?? null;
     }
 }
 

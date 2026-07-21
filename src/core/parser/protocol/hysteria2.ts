@@ -23,7 +23,7 @@ export class Hysteria2Parser extends Faker {
     #confusePs: string = '';
 
     /** * @description 区域 */
-    #match: string = '';
+    #tag: string = '';
 
     constructor(v: string) {
         super();
@@ -42,7 +42,7 @@ export class Hysteria2Parser extends Faker {
         this.#originLink = v;
         this.#originConfig = new URL(v);
         this.#originPs = this.#originConfig.hash ?? '';
-        this.#match = this.getMatch(this.#originConfig.hash) ?? '';
+        this.#tag = this.getTag(this.#originConfig.hash) ?? '';
     }
 
     /**
@@ -172,8 +172,8 @@ export class Hysteria2Parser extends Faker {
         return this.#confuseConfig;
     }
 
-    get match(): string | null {
-        return this.#match ?? null;
+    get tag(): string | null {
+        return this.#tag ?? null;
     }
 }
 

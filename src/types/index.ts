@@ -12,6 +12,12 @@ export interface ShortUrl {
     long_url: string;
 }
 
+export interface ExcludeRule {
+    label: string;
+    value: string;
+    rules: string;
+}
+
 export * from './Clash';
 export * from './Singbox';
 export * from './V2Ray';
